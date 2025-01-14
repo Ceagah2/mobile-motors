@@ -21,7 +21,7 @@ authAPI.interceptors.request.use((config) => {
 carsAPI.interceptors.response.use(
   (response) => response,
   (error) => {
-    console.error("Erro na API de carros:", error);
+    console.error("Erro on fetching cars data:", error);
     return Promise.reject(error);
   }
 );
