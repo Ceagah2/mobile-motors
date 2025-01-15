@@ -1,29 +1,30 @@
-import { useState } from 'react';
-import { Controller, useForm } from 'react-hook-form';
-import { colors } from '../../../theme';
-import { Button, Input } from '../../atoms';
-import { FormProps } from './LoginForm.interface';
-import * as S from './LoginForm.styles';
+import { useState } from "react";
+import { Controller, useForm } from "react-hook-form";
+import { ActivityIndicator } from "react-native";
+import { useLogin } from "../../../hooks/useLogin";
+import { colors } from "../../../theme";
+import { Button, Input } from "../../atoms";
+import * as S from "./LoginForm.styles";
 
-export const LoginForm = ({onSubmit}: FormProps) => { 
-   const [isSecureEntry, setIsSecureEntry] = useState<boolean>(true)
-  
-    const {
-      control,
-      handleSubmit,
-      formState: { errors },
-    } = useForm({
-      defaultValues: {
-        user: "",
-        password: "",
-      },
-    });
-  
-    
-    const handleShowPassword = () => {
-      setIsSecureEntry(!isSecureEntry)
-    }
-  
+export const LoginForm = () => {
+  const [isSecureEntry, setIsSecureEntry] = useState<boolean>(true);
+  const { isLoading, errorMessage, handleLogin } = useLogin();
+
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      user: "",
+      password: "",
+    },
+  });
+
+  const handleShowPassword = () => {
+    setIsSecureEntry(!isSecureEntry);
+  };
+
   return (
     <S.FormContainer>
       <Controller
@@ -39,10 +40,12 @@ export const LoginForm = ({onSubmit}: FormProps) => {
             onChangeText={onChange}
             value={value}
             placeholder="Enter your username"
+            autoCapitalize="none" 
           />
         )}
       />
       {errors.user && <S.ErrorText>{errors.user.message}</S.ErrorText>}
+
       <Controller
         name="password"
         control={control}
@@ -64,17 +67,27 @@ export const LoginForm = ({onSubmit}: FormProps) => {
             onChangeText={onChange}
             value={value}
             placeholder="Enter your password"
+            autoCapitalize="none" 
           />
         )}
       />
       {errors.password && <S.ErrorText>{errors.password.message}</S.ErrorText>}
+
+      {errorMessage && <S.ErrorText>{errorMessage}</S.ErrorText>}
+
       <S.ButtonContainer>
-        <Button
-          title="Login"
-          bgColor={colors.primary}
-          onPress={handleSubmit(onSubmit)}
-        />
+        {isLoading ? (
+          <ActivityIndicator size="large" color={colors.primary} />
+        ) : (
+          <Button
+            title="Login"
+            bgColor={colors.primary}
+            onPress={handleSubmit((data) =>
+              handleLogin({ user: data.user, password: data.password })
+            )}
+          />
+        )}
       </S.ButtonContainer>
     </S.FormContainer>
   );
-}
+};
