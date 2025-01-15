@@ -1,3 +1,3 @@
-export interface IContainer { 
+export interface ContainerProps { 
   children: React.ReactNode
 }
