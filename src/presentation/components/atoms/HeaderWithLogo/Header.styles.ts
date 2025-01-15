@@ -1,6 +1,6 @@
 import styled from 'styled-components/native';
-import { colors, fonts, sizes } from '../../theme';
-import { useResponsive } from './../../hooks/useResponsive';
+import { colors, fonts, sizes } from '../../../theme';
+import { useResponsive } from './../../../hooks/useResponsive';
 
 export const Header = styled.View`
   width: 90%;

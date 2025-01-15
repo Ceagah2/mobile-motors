@@ -1,5 +1,5 @@
 import styled from 'styled-components/native';
-import { colors, fonts, sizes } from '../../theme';
+import { colors, fonts, sizes } from '../../../theme';
 
 type ButtonType = {
   bgColor: string
