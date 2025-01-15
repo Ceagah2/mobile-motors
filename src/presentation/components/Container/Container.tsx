@@ -1,6 +1,6 @@
-import { IContainer } from './Container.interface';
+import { ContainerProps } from './Container.interface';
 import * as S from './Container.styles';
 
-export const Container = (props: IContainer) => {
+export const Container = (props: ContainerProps) => {
   return <S.MainContainer>{props.children}</S.MainContainer>;
 };
