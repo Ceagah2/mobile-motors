@@ -4,7 +4,7 @@ import Logo from '../../../../../assets/img/logo.png';
 import { HeaderProps } from './Header.interface';
 import * as S from './Header.styles';
 
-export const Header = ({onPressLogo}: HeaderProps) => {
+export const Header = ({onPressLogo, SubTitle}: HeaderProps) => {
   const [userName, setUserName] = useState<string>('')
 
   useEffect(() => {
@@ -21,7 +21,10 @@ export const Header = ({onPressLogo}: HeaderProps) => {
       <S.ActionButtons onPress={onPressLogo}>
         <S.Logo source={Logo} />
       </S.ActionButtons>
-      <S.Title>Welcome {userName} !</S.Title>
+      <S.TextContainer>
+        <S.Title>Welcome {userName} !</S.Title>
+        <S.Subtitle>{SubTitle}</S.Subtitle>
+      </S.TextContainer>
     </S.Header>
   );
 }

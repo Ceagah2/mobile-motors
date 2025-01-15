@@ -1,3 +1,4 @@
+import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { useState } from "react";
 import { ActivityIndicator, FlatList, View } from "react-native";
 import { Card, Input } from "../../atoms";
@@ -11,6 +12,8 @@ export const ModelsContainer = ({ data }: ModelsProps) => {
   );
   const [loading, setLoading] = useState<boolean>(false);
   const [searchQuery, setSearchQuery] = useState<string>("");
+  const navigation: NavigationProp<any, any> = useNavigation()
+
 
   const handleSearch = (query: string) => {
     setSearchQuery(query);
@@ -56,7 +59,7 @@ export const ModelsContainer = ({ data }: ModelsProps) => {
       <FlatList
         data={displayedData}
         renderItem={({ item }) => (
-          <Card codigo={item.codigo} nome={item.nome} hasNavigation />
+          <Card codigo={item.codigo} nome={item.nome} hasNavigation navigation={() => navigation.navigate("Models", item.codigo)}/>
         )}
         keyExtractor={(item) => item.codigo.toString()}
         initialNumToRender={10}

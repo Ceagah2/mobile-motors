@@ -28,6 +28,8 @@ export default function Home() {
 
     const fetchData = async () => {
       const cachedData = await AsyncStorage.getItem("brands");
+    console.log(cachedData);
+
       if (cachedData) {
         setCarBrands(JSON.parse(cachedData));
       } else {
@@ -39,11 +41,15 @@ export default function Home() {
     };
     fetchData();
   }, []);
-
+  
+  console.log(carBrands)
 
   return (
     <Container>
-      <Header onPressLogo={handleOpenActions} />
+      <Header
+        onPressLogo={handleOpenActions}
+        SubTitle="Check out our last models"
+      />
       {carBrands && <ModelsContainer data={carBrands} />}
       <BottomModal
         visible={isActionModalOpen}

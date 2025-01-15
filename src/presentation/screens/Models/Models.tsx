@@ -1,28 +1,36 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useEffect, useState } from "react";
+import { NavigationProp, useNavigation } from "@react-navigation/native";
+import React, { useEffect, useState } from "react";
+import { useUser } from "../../../data/context/context";
 import { carsAPI } from "../../../data/service/api";
 import { Container, Header } from "../../components/atoms";
-import { BrandsContainer } from "../../components/molecules";
+import { BottomModal } from "../../components/atoms/Modal/Modal";
+import { BrandContainer } from "../../components/molecules";
 import { Model } from "../../components/molecules/ModelsContainer/Models.interface";
 
 
-export default function Models() {
+export default function Models({route}: any) {
   const [carBrands, setCarBrands] = useState<Model[]>()
+  const navigation: NavigationProp<any, any> = useNavigation()
+  const { clearUserName } = useUser()
+  const [isActionModalOpen, setIsActionModalOpen] = useState<boolean>(false);
+
+  const brandId = route?.params
   const handleOpenActions = () => {
-    console.log('open actions')
-  }
+    setIsActionModalOpen(true);
+  };
+
+   const handleLogout = () => {
+     navigation.navigate("Login");
+     clearUserName();
+     setIsActionModalOpen(false);
+   };
 
   useEffect(() => {
     const fetchData = async () => {
-      const cachedData = await AsyncStorage.getItem("brands");
-      if (cachedData) {
-        setCarBrands(JSON.parse(cachedData));
-      } else {
-        const response = await carsAPI.get("/carros/marcas");
-        const data = await response.data;
-        setCarBrands(data);
-        await AsyncStorage.setItem("brands", JSON.stringify(data));
-      }
+      const response = await carsAPI.get(`/carros/marcas/${brandId}/modelos`);
+      const data = await response.data;
+      setCarBrands(data);
+      console.log(data)
     };
     fetchData();
   }, []);
@@ -30,8 +38,16 @@ export default function Models() {
 
   return (
     <Container>
-      <Header onPressLogo={handleOpenActions} />
-      {carBrands && <BrandsContainer data={carBrands} />}
+      <Header onPressLogo={handleOpenActions} SubTitle="This brand new cars just arrived"/>
+      <BrandContainer data={carBrands}/>
+      <BottomModal
+        visible={isActionModalOpen}
+        onClose={() => setIsActionModalOpen(false)}
+        actions={[
+          { label: "Logout", onPress: () => handleLogout() },
+          { label: "Go back", onPress: () => navigation.goBack() }
+        ]}
+      />
     </Container>
   );
 }
