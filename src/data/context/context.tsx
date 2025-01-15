@@ -3,7 +3,7 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 import { UserContextData } from "./context.interface";
 
 const UserContext = createContext<UserContextData>({} as UserContextData);
-const USER_STORAGE_KEY = "@MobileMotors:userName";
+const USER_STORAGE_KEY = "@App:user";
 
 export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
@@ -32,6 +32,7 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
   const clearUserName = async () => {
     try {
       await AsyncStorage.removeItem(USER_STORAGE_KEY);
+      await AsyncStorage.removeItem("@App:token");
       setUserName(null);
     } catch (error) {
       console.error("Error on clearing user name:", error);
