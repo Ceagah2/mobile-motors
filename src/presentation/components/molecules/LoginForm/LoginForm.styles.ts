@@ -1,4 +1,5 @@
 import styled from 'styled-components/native';
+import { useResponsive } from '../../../hooks/useResponsive';
 import { colors, sizes } from '../../../theme';
 
 export const FormContainer = styled.View`
@@ -15,7 +16,7 @@ export const ButtonContainer = styled.View`
 export const ErrorText = styled.Text`
   width: 85%;
   color: ${colors.error};
-  font-size: ${sizes.caption};
+  font-size: ${useResponsive(sizes.input)};
   margin-bottom: 8px;
   text-align: left;
 `;

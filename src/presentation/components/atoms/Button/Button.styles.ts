@@ -1,4 +1,5 @@
 import styled from 'styled-components/native';
+import { useResponsive } from '../../../hooks/useResponsive';
 import { colors, fonts, sizes } from '../../../theme';
 
 type ButtonType = {
@@ -17,7 +18,7 @@ export const Container = styled.TouchableOpacity<ButtonType>`
 
 export const ButtonText = styled.Text<ButtonType>`
   color: ${(props: ButtonType) => props.textColor ? props.textColor : colors.background};
-  font-size: ${sizes.button};
+  font-size: ${useResponsive(sizes.caption)};
   font-family: ${fonts.button};
 `
 

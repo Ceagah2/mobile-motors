@@ -1,4 +1,5 @@
 import styled from "styled-components/native";
+import { useResponsive } from "../../../hooks/useResponsive";
 import { colors, fonts, sizes } from "../../../theme";
 
 type CardProps = { 
@@ -22,11 +23,11 @@ export const Image = styled.Image`
 `
 export const Code = styled.Text`
   font-family: ${fonts.caption};
-  font-size: ${sizes.button};
+  font-size: ${useResponsive(sizes.caption)};
   color: ${colors.textPrimary};
-`
+`;
 export const Name = styled.Text`
   font-family: ${fonts.heading};
-  font-size: ${sizes.subHeading};
+  font-size: ${useResponsive(sizes.body)};
   color: ${colors.textSecondary};
 `;

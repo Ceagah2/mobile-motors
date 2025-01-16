@@ -1,4 +1,5 @@
 import styled from 'styled-components/native';
+import { useResponsive } from '../../../hooks/useResponsive';
 import { colors, fonts, sizes } from '../../../theme';
 
 export const Container = styled.View`
@@ -12,9 +13,9 @@ export const Container = styled.View`
 `;
 export const Label = styled.Text`
   font-family: ${fonts.caption};
-  font-size: ${sizes.caption};
+  font-size: ${useResponsive(sizes.input)};
   color: ${colors.textPrimary};
-`
+`;
 
 export const DefaultInput = styled.TextInput`
   width: 90%;
