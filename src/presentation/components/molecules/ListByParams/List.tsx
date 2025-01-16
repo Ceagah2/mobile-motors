@@ -9,8 +9,6 @@ export const ListByParams = ({ title, carBrandsByYear }: ListProps) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [displayedData, setDisplayedData] = useState<YearType[]>([]);
-        // data.slice(0, 10)
-  console.log("Data from list by params:", carBrandsByYear);
 
   const loadMoreData = () => {
     if (loading || searchQuery.trim() !== "") return;
