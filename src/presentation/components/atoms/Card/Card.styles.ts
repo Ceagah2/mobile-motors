@@ -1,9 +1,13 @@
 import styled from "styled-components/native";
 import { colors, fonts, sizes } from "../../../theme";
 
-export const Container = styled.TouchableOpacity`
+type CardProps = { 
+  height?: string;
+}
+
+export const Container = styled.TouchableOpacity<CardProps>`
   width: 100%;
-  height: 150px;
+  height: ${(props: CardProps) => props.height ? props.height : '150px'};
   justify-content: center;
   align-items: center;
   border: 1px solid ${colors.divider};

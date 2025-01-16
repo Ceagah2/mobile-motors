@@ -5,7 +5,7 @@ import Car3 from '../../../../../assets/img/car3.png'
 import { CardProps } from './Card.interface'
 import * as S from './Card.styles'
 
-export const Card = ({codigo, nome, hasNavigation, navigation}: CardProps) => {
+export const Card = ({codigo, nome, hasNavigation, navigation, height}: CardProps) => {
   const [carImage, setCarImage] = useState<string>('')
 
   useEffect(() => {
@@ -17,7 +17,7 @@ export const Card = ({codigo, nome, hasNavigation, navigation}: CardProps) => {
     randomCarImage()
   },[])
   return(
-    <S.Container onPress={hasNavigation ? navigation : null}>
+    <S.Container onPress={hasNavigation ? navigation : null} height={height} >
       <S.Image source={carImage} />
       <S.Name>Model: {nome}</S.Name>
       <S.Code>Code: {codigo}</S.Code>
